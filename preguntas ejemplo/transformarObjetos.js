@@ -1,3 +1,4 @@
+// PREGUNTA 1
 const Data =[
   { userId: 'u1', category: 'food', amount: 20 },
   { userId: 'u2', category: 'travel', amount: 100 },
@@ -36,7 +37,32 @@ function userTotalSpent(data) {
 
 console.log(userTotalSpent(Data));
 
-/*"Estoy usando una sola pasada sobre los datos, por lo que la complejidad temporal es O(N).
-Trato el objeto de salida como un hash map para acceso en tiempo constante.
+/*"Estoy usando una sola pasada sobre los datos, así que la complejidad temporal es O(N).
+Trato el objeto de salida como un mapa hash para acceso en tiempo constante.
 También omito de forma defensiva los registros mal formados para evitar errores en tiempo de ejecución.
 Este enfoque escala linealmente y evita asignaciones innecesarias."*/
+
+//PREGUNTA 2
+//Explain the output:
+
+for (var i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 0);
+}
+
+//Fix it without changing var
+//Explain how this impacts real apps
+for (var i = 0; i < 3; i++) {
+  (function (x) {
+    setTimeout(() => console.log(x), 0);
+  })(i);
+}
+/* 
+  *¿Por qué?:
+var tiene alcance de función, no de bloque
+Hay una sola variable i compartida
+Cuando se ejecutan los callbacks de setTimeout, el bucle ya ha terminado
+i === 3 cuando se ejecutan los callbacks
+
+  *Event Loop:
+"El bucle se ejecuta de forma síncrona y programa tres callbacks de temporizador.
+Una vez que la pila de llamadas está vacía, el event loop ejecuta los callbacks encolados, todos los cuales hacen referencia al mismo valor de i."*/
